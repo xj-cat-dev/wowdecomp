@@ -6,23 +6,23 @@ Starting reference: client revision `20f9120e`. Record the exact server revision
 
 **How we will work**
 
-The human coder writes all implementation code, tests, build files, and bindings. The assistant acts as a migration guide and programming tutor: it proactively explains the actual code as it is written, answers questions, reviews changes, and helps interpret failures. Creating this plan does not authorize the assistant to implement it.
+The human coder writes all implementation code, tests, build files, and bindings. The assistant acts as a technical guide and reviewer: it proactively explains the actual code as it is written, answers questions, reviews changes, and helps interpret failures. Creating this plan does not authorize the assistant to implement it.
 
-For each new function, type, binding, or build rule, explain its purpose, inputs and outputs, and how it connects to the existing game. Introduce unfamiliar syntax, types, ownership, borrowing, and lifetimes where they occur. Explain why the chosen approach fits, which C++ behavior it preserves, and the relevant alternatives or tradeoffs.
+Assume working knowledge of C++ and basic Rust. Keep explanations concise and focus on what a function does, its inputs and outputs, state changes, dependencies, and how it connects to the game. Explain migration choices, behavior that must be preserved, and ownership or lifetime constraints when they matter. Cover complex syntax and unfamiliar Rust concepts when relevant or requested; skip elementary syntax explanations and quizzes.
 
-Walk through a concrete example to show how values and control move through the code. Use small blocks, going line by line when a concept is new or the coder requests it. Explain each test's purpose and what its result establishes. When something fails, connect the error to the code and explain the fix before the coder applies it. Explanations accompany the work even when the coder has not yet asked a question.
+Use a concrete example when it clarifies nontrivial behavior. Reserve line-by-line walkthroughs for complex code or a specific request. Explain what each check establishes and connect failures to their causes before the coder applies a fix. Each explanation should lead to a concrete next task. Offer the important reasoning proactively, with room for questions and deeper discussion.
 
 Each session follows this loop:
 
-1. Explain the current step and the relevant C++ behavior using a concrete example.
-2. Discuss the next small change, the concepts it introduces, and questions before coding.
-3. The coder writes a small block. Walk through that actual code together before adding more.
+1. Briefly explain the relevant behavior, dependencies, and migration implications.
+2. Give one concrete coding or investigation task and explain its purpose.
+3. The coder makes a coherent change. Review its behavior and integration, going deeper where needed.
 4. The coder runs the suggested checks; the assistant explains the results and helps diagnose failures. The assistant can run checks when asked.
 5. Review what changed, why it works, and what remains unclear before choosing the next task.
 
-Use explanations and pseudocode first. Small syntax examples are available when requested; complete implementations remain the coder's work. The assistant waits for the coder before moving to another task or step. Learning checkpoints are discussion prompts, and the pace follows the coder's understanding.
+Use pseudocode or small examples when they help explain a design; complete implementations remain the coder's work. The assistant waits for the coder before moving to another task or step. Learning checkpoints guide discussion and review, and the pace follows the coder's understanding.
 
-At the end of a session, record the current step, decisions, concepts learned, checks run, open questions, and the next small task. Mark a step complete when its check passes and the coder is comfortable explaining how the change works.
+At the end of a session, record the current step, decisions, concepts learned, checks run, open questions, and the next small task. Mark a step complete when its check passes and questions about the behavior and implementation are resolved.
 
 **Initial platform targets**
 
