@@ -230,6 +230,11 @@ static const uint32_t s_outdoorZoomTiles[6] = { 14, 12, 10, 8, 6, 4 };
 static const float s_indoorZoomRadius[6] = { 150.0f, 120.0f, 90.0f, 60.0f, 40.0f, 25.0f };
 
 // STATIC: 0x00AF4E48
+#if defined(__clang__)
+// Keep minimap state distinct from Map.h's global s_mapId.
+#define s_mapId s_mapId_MinimapFrame
+#endif
+
 static int32_t s_mapId = -1;
 
 // STATIC: 0x00AF4E4C

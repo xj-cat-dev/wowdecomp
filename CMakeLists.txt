@@ -13,6 +13,13 @@ project(wowdecomp CXX C)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    add_compile_options(
+        "$<$<COMPILE_LANGUAGE:CXX>:-Wno-register>"
+        "$<$<COMPILE_LANGUAGE:CXX>:-Wno-error=c++11-narrowing>"
+    )
+endif()
+
 if (NOT CMAKE_SYSTEM_NAME MATCHES "Windows")
     message(FATAL_ERROR "wowdecomp targets Windows only.")
 endif ()
@@ -130,3 +137,12 @@ foreach (target Wow WowClient MapViewer M2Viewer GxTest MpqTest BlpTest DbcTest 
         target_sources(${target} PRIVATE ${CMAKE_SOURCE_DIR}/waystone.rc)
     endif ()
 endforeach ()
+
+cmake_policy(SET CMP0079 NEW)
+foreach(client_target IN ITEMS Wow WowClient)
+    target_link_libraries(${client_target} PRIVATE
+        kernel32 user32 gdi32 winspool
+        shell32 ole32 oleaut32 uuid
+        comdlg32 advapi32
+    )
+endforeach()
